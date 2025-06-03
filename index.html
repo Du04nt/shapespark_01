@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện hình ảnh và video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            gap: 20px;
+        }
+
+        .main-media {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .main-media img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-out;
+        }
+
+        .thumbnails {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .thumbnails img, .thumbnails video {
+            width: 100px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnails img:hover, .thumbnails video:hover {
+            transform: scale(1.1);
+            border-color: #007bff;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-media" id="zoom-container">
+            <img id="display-media" src="https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg" alt="Hình ảnh chính">
+        </div>
+        <div class="thumbnails">
+            <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg', 'image')" alt="Thumbnail 1">
+            <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/481/106/cn59481106.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/481/106/cn59481106.jpg', 'image')" alt="Thumbnail 2">
+            <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/171/535/cn59171535.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/171/535/cn59171535.jpg', 'image')" alt="Thumbnail 3">
+            <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/171/538/cn59171538.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/171/538/cn59171538.jpg', 'image')" alt="Thumbnail 4">
+            <video class="thumbnail" src="https://athleta.gap.com/webcontent/0059/120/253/cn59120253.mp4" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/120/253/cn59120253.mp4', 'video')" alt="Video Thumbnail"></video>
+        </div>
+        <div class="content">
+            <h2>Tiêu đề nội dung</h2>
+            <p>Đây là phần nội dung văn bản. Bạn có thể chỉnh sửa theo nhu cầu.</p>
+        </div>
+    </div>
+
+    <script>
+        function changeMedia(mediaSrc, type) {
+            let mainMediaContainer = document.querySelector('.main-media');
+            mainMediaContainer.innerHTML = ''; 
+
+            if (type === 'image') {
+                let imgElement = document.createElement('img');
+                imgElement.src = mediaSrc;
+                imgElement.id = 'display-media';
+                imgElement.style.opacity = '0';
+                imgElement.onload = () => imgElement.style.opacity = '1';
+                mainMediaContainer.appendChild(imgElement);
+                enableZoomPan(imgElement);
+            } else if (type === 'video') {
+                let videoElement = document.createElement('video');
+                videoElement.src = mediaSrc;
+                videoElement.controls = true;
+                videoElement.autoplay = true;
+                videoElement.id = 'display-media';
+                videoElement.style.opacity = '0';
+                videoElement.onloadeddata = () => videoElement.style.opacity = '1';
+                mainMediaContainer.appendChild(videoElement);
+            }
+        }
+
+        function enableZoomPan(imgElement) {
+            let scale = 1;
+            let originX = 0;
+            let originY = 0;
+            let isDragging = false;
+            let startX, startY;
+
+            imgElement.addEventListener("wheel", (event) => {
+                event.preventDefault();
+                scale += event.deltaY * -0.01;
+                scale = Math.min(Math.max(1, scale), 3);
+                imgElement.style.transform = `scale(${scale})`;
+            });
+
+            imgElement.addEventListener("mousedown", (event) => {
+                isDragging = true;
+                startX = event.clientX - originX;
+                startY = event.clientY - originY;
+                imgElement.style.cursor = "grabbing";
+            });
+
+            imgElement.addEventListener("mousemove", (event) => {
+                if (isDragging) {
+                    originX = event.clientX - startX;
+                    originY = event.clientY - startY;
+                    imgElement.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
+                }
+            });
+
+            imgElement.addEventListener("mouseup", () => {
+                isDragging = false;
+                imgElement.style.cursor = "grab";
+            });
+
+            imgElement.addEventListener("mouseleave", () => {
+                isDragging = false;
+                imgElement.style.cursor = "grab";
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let mainImage = document.getElementById('display-media');
+            enableZoomPan(mainImage);
+        });
+    </script>
+</body>
+</html>
