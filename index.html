@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -60,9 +61,25 @@
         .content {
             flex: 1;
             padding: 20px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.272);
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-toggle {
+            cursor: pointer;
+            margin-bottom: 10px;
+            background-color: #eee;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            border-left: 3px solid #007bff;
+            background-color: hsla(0, 0%, 98%, 0);
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -79,8 +96,36 @@
             <video class="thumbnail" src="https://athleta.gap.com/webcontent/0059/120/253/cn59120253.mp4" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/120/253/cn59120253.mp4', 'video')" alt="Video Thumbnail"></video>
         </div>
         <div class="content">
-            <h2>Tiêu đề nội dung</h2>
-            <p>Đây là phần nội dung văn bản. Bạn có thể chỉnh sửa theo nhu cầu.</p>
+            <div class="accordion-section">
+                <h2 class="accordion-toggle">Product Details</h2>
+                <div class="accordion-content">
+                    <p>     -FOR: Summer moves—long-light days, open-air plans, unrushed routines
+                            -FEEL: Cozy-meets-breezy Heavyweight Terry has a breathable soft looped interior, plus perfect stretch
+                            -FAVE: Drop-in cargo pockets give you plenty of on-hand storage
+                            -#646831
+                    </p>
+                </div>
+            </div>
+            <div class="accordion-section">
+                <h2 class="accordion-toggle">Fabric + Care</h2>
+                <div class="accordion-content">
+                    <p>     -86% Cotton/12% Polyester/2% Spandex
+                            -BREATHABLE: Airflow moves easily through the garment
+                            -ALL-AROUND STRETCH: Provides ultimate comfort and mobility
+                            -EASY CARE: Just throw in the wash and dry without a second thought
+                            -Machine wash and dry.
+                            -Imported.
+                        </p>
+                </div>
+            </div>
+            <div class="accordion-section">
+                <h2 class="accordion-toggle">Fit + Sizing</h2>
+                <div class="accordion-content">
+                    <p>         -Relaxed fit for a wide range of motion and mid-rise waistband
+                                -Mid rise, sits below the natural waist
+                        </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -150,6 +195,16 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            const toggles = document.querySelectorAll(".accordion-toggle");
+
+            toggles.forEach(toggle => {
+                toggle.addEventListener("click", () => {
+                    const content = toggle.nextElementSibling;
+                    const isVisible = content.style.display === "block";
+                    content.style.display = isVisible ? "none" : "block";
+                });
+            });
+
             let mainImage = document.getElementById('display-media');
             enableZoomPan(mainImage);
         });
