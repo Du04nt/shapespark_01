@@ -22,23 +22,6 @@
             gap: 20px;
         }
 
-        .main-media {
-            flex: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            cursor: grab;
-        }
-
-        .main-media img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            transition: opacity 0.5s ease-in-out, transform 0.3s ease-out;
-        }
-
         .thumbnails {
             flex: 1;
             display: flex;
@@ -58,10 +41,27 @@
             border-color: #007bff;
         }
 
+        .main-media {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .main-media img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-out;
+        }
+
         .content {
             flex: 1;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.272);
+            background-color: white;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -70,7 +70,7 @@
             cursor: pointer;
             margin-bottom: 10px;
             background-color: #eee;
-            padding: 5px;
+            padding: 10px;
             border-radius: 5px;
         }
 
@@ -78,16 +78,13 @@
             display: none;
             padding: 10px;
             border-left: 3px solid #007bff;
-            background-color: hsla(0, 0%, 98%, 0);
+            background-color: #f9f9f9;
             margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="main-media" id="zoom-container">
-            <img id="display-media" src="https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg" alt="Hình ảnh chính">
-        </div>
         <div class="thumbnails">
             <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg', 'image')" alt="Thumbnail 1">
             <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/481/106/cn59481106.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/481/106/cn59481106.jpg', 'image')" alt="Thumbnail 2">
@@ -95,27 +92,30 @@
             <img class="thumbnail" src="https://athleta.gap.com/webcontent/0059/171/538/cn59171538.jpg" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/171/538/cn59171538.jpg', 'image')" alt="Thumbnail 4">
             <video class="thumbnail" src="https://athleta.gap.com/webcontent/0059/120/253/cn59120253.mp4" onclick="changeMedia('https://athleta.gap.com/webcontent/0059/120/253/cn59120253.mp4', 'video')" alt="Video Thumbnail"></video>
         </div>
+        <div class="main-media" id="zoom-container">
+            <img id="display-media" src="https://athleta.gap.com/webcontent/0059/481/340/cn59481340.jpg" alt="Hình ảnh chính">
+        </div>
         <div class="content">
             <div class="accordion-section">
                 <h2 class="accordion-toggle">Product Details</h2>
                 <div class="accordion-content">
-                    <p>     -FOR: Summer moves—long-light days, open-air plans, unrushed routines
-                            -FEEL: Cozy-meets-breezy Heavyweight Terry has a breathable soft looped interior, plus perfect stretch
-                            -FAVE: Drop-in cargo pockets give you plenty of on-hand storage
-                            -#646831
+                    <p> -FOR: Summer moves—long-light days, open-air plans, unrushed routines
+                        -FEEL: Cozy-meets-breezy Heavyweight Terry has a breathable soft looped interior, plus perfect stretch
+                        -FAVE: Drop-in cargo pockets give you plenty of on-hand storage
+                        -#646831
                     </p>
                 </div>
             </div>
             <div class="accordion-section">
                 <h2 class="accordion-toggle">Fabric + Care</h2>
                 <div class="accordion-content">
-                    <p>     -86% Cotton/12% Polyester/2% Spandex
-                            -BREATHABLE: Airflow moves easily through the garment
-                            -ALL-AROUND STRETCH: Provides ultimate comfort and mobility
-                            -EASY CARE: Just throw in the wash and dry without a second thought
-                            -Machine wash and dry.
-                            -Imported.
-                        </p>
+                    <p> -86% Cotton/12% Polyester/2%
+                         -BREATHABLE: Airflow moves easily through the garment
+                        -ALL-AROUND STRETCH: Provides ultimate comfort and mobility
+                        -EASY CARE: Just throw in the wash and dry without a second thought
+                        -Machine wash and dry.
+                        -Imported.
+                    </p>
                 </div>
             </div>
             <div class="accordion-section">
